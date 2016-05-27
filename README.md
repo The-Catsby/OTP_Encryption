@@ -8,14 +8,15 @@ Two of these will function like “daemons” (but aren't actually daemons), and
 
 When otp_enc_d makes a connection with otp_enc, it forks off a separate process immediately, and is available to receive more connections. It can support up to five concurrent socket connections. In the forked off process, the actual encryption will take place, and the ciphertext will be written back.
 
->otp_enc_d listening_port
+>otp_enc_d *listening_port*
 
 listening_port is the port that otp_enc_d should listen on. You will always start otp_enc_d in the background.
 
 >$ otp_enc_d 57171 &
 
 **otp_enc**: This program connects to otp_enc_d, and asks it to perform a one-time pad style encryption as detailed above. By itself, otp_enc doesn’t do the encryption. Its syntax is as follows:
-> otp_enc plaintext key port
+
+> otp_enc *plaintext key port*
 
   In this syntax, plaintext is the name of a file in the current directory that contains the plaintext you wish to encrypt. Similarly, key contains the encryption key you wish to use to encrypt the text. Finally, port is the port that otp_enc should attempt to connect to otp_enc_d on.
 
@@ -33,3 +34,32 @@ When otp_enc receives the ciphertext, it should output it to stdout. Thus, otp_e
 The syntax for keygen is as follows:
 >keygen *keylength* > mykey
 
+Example command line:
+
+>$ cat plaintext1
+
+>THE RED GOOSE FLIES AT MIDNIGHT
+
+>$ otp_enc_d 57171 &
+
+>$ otp_dec_d 57172 &
+
+>$ keygen 1024 > mykey
+
+>$ otp_enc plaintext1 mykey 57171 > ciphertext1
+
+>$ cat ciphertext1
+
+>GU WIRGEWOMGRIFOENBYIWUG T WOFL
+
+>$ otp_dec ciphertext1 mykey 57172 > plaintext1_a
+
+>$ cat plaintext1_a
+
+>THE RED GOOSE FLIES AT MIDNIGHT
+
+>$ cmp plaintext1 plaintext1_a
+
+>$ echo $?
+
+>0
