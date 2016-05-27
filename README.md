@@ -1,5 +1,6 @@
-# CS_344_OTP
-Five small C programs that encrypt and decrypt information using a one-time pad-like system.
+# CS 344 OTP
+
+####Five small C programs that encrypt and decrypt information using a one-time pad-like system.
 
 Two of these will function like “daemons” (but aren't actually daemons), and will be accessed using network sockets. Two will use the daemons to perform work, and the last is a standalone utility.
 
