@@ -4,6 +4,8 @@
 
 Two of these will function like “daemons” (but aren't actually daemons), and will be accessed using network sockets. Two will use the daemons to perform work, and the last is a standalone utility.
 
+*All execution, compiling, and testing of this program should ONLY be done in the bash prompt*
+
 ####Files
 
 **1. otp_enc_d**: This program will run in the background as a daemon. Its function is to perform the actual encoding, as descripted above in the Wikipedia quote. This program will listen on a particular port, assigned when it is first ran, and receives plaintext and a key via that port when a connection to it is made. It will then write back the ciphertext to the process that it is connected to via the same port. Note that the key passed in must be at least as big as the plaintext. This program must output an error if the program cannot be run due to a network error, such as the ports being unavailable.
