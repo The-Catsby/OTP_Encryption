@@ -1,4 +1,4 @@
-# CS 344 OTP
+# One-Time Pad-like (OTP) Encryption
 
 **Five small C programs that encrypt and decrypt information using a one-time pad-like system.**
 
